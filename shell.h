@@ -17,5 +17,6 @@ char *read_cmd(void);
 void parse_cmd(char *cmd, char **args);
 void execute_cmd(char **args);
 int str_cspn(const char *str, const char *reject);
+int my_strcmp(const char *s1, const char *s2);
 
 #endif /* SHELL_H */
