@@ -2,7 +2,7 @@
 
 /**
  * main - a function that prints all other functions
- * exit: it exits the code
+ * Return: it exits the code
  */
 
 int main(void)
@@ -14,7 +14,7 @@ int main(void)
 	{
 		print_prompt();
 		cmd = read_cmd();
-		
+
 		if (cmd == NULL)
 		{
 			exit(EXIT_SUCCESS);
