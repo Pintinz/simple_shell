@@ -9,17 +9,17 @@
 
 int str_cspn(const char *str, const char *reject)
 {
-        int length, j;
+		int length, j;
 
-        for (length = 0; str[length]; length++)
-        {
-                for (j = 0; reject[j]; j++)
-                {
-                        if (str[length] == reject[j])
-                        {
-                                return (length);
-                        }
-                }
-        }
-        return (length);
+		for (length = 0; str[length]; length++)
+		{
+			for (j = 0; reject[j]; j++)
+			{
+				if (str[length] == reject[j])
+				{
+					return (length);
+				}
+			}
+		}
+		return (length);
 }
