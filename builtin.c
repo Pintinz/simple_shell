@@ -11,8 +11,8 @@
 ssize_t my_getline(char **lineptr, size_t *n)
 {
 	static char buffer[BUFFER_SIZE];
-	static ssize_t buffer_pos = 0;
-	static ssize_t buffer_size = 0;
+	ssize_t buffer_pos = 0; /*static*/
+	ssize_t buffer_size = 0; /*static*/
 	/*ssize_t bytesRead;*/
 	ssize_t totalBytesRead;
 	char c;
