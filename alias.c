@@ -5,11 +5,7 @@
  * the current working directory
  */
 
-/*Global variables*/
-char *prev_directory;
-char *current_directory;
-char *home_directory;
-char *aliases[MAX_ALIASES][2];
+
 
 void update_pwd(void)
 {

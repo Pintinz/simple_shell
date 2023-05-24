@@ -48,13 +48,13 @@ void my_strcpy(char *dest, const char *src)
  * @target: the chacter to search for
  * Return: it returns NULL
  */
-char* my_strchr(const char *str, char target)
+char  *my_strchr(const char *str, char target)
 {
 	while (*str != '\0')
 	{
 		if (*str == target)
 		{
-			return ((char*)str);
+			return ((char *)str);
 		}
 		str++;
 	}
@@ -65,7 +65,7 @@ char* my_strchr(const char *str, char target)
  * my_strncmp - a function that compares the first n characters of str1 & str2
  * @str1: first string
  * @str2: second string
- * @n: the number of arguments passed 
+ * @n: the number of arguments passed
  * Return: it returns str1 & str2
  */
 
@@ -79,7 +79,7 @@ int my_strncmp(const char *str1, const char *str2, size_t n)
 	}
 
 	if (n == 0)
-		return 0;
+		return (0);
 	else
 		return (*(unsigned char *)str1 - *(unsigned char *)str2);
 }

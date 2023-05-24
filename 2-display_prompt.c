@@ -62,6 +62,7 @@ void execute_cd(char **args)
 		if (prev_directory != NULL)
 		{
 			char *temp;
+
 			chdir(prev_directory);
 
 			temp = current_directory;

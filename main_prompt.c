@@ -8,11 +8,7 @@
  * Return: it exits the program
  */
 
-/*Global variables*/
-char *prev_directory;
-char *current_directory;
-char *home_directory;
-char *aliases[MAX_ALIASES][2];
+
 
 int main(int argc, char **argv, char **envp)
 {
