@@ -1,134 +1,116 @@
 #include "shell.h"
 
-
 /**
- * my_getline - a function that gets a command from the environment
- * @lineptr: a double pointer to a line
- * @n: number of variables
- * Return: it return the 1 if successful
+ * my_exit - a function that Exits the shell
+ * @info: a string containing arguments
+ * Return: if info.argv[0] != "exit"
  */
-
-ssize_t my_getline(char **lineptr, size_t *n)
+int myExit(info_t *info)
 {
-	static char buffer[BUFFER_SIZE];
-	ssize_t buffer_pos = 0; /*static*/
-	ssize_t buffer_size = 0; /*static*/
-	/*ssize_t bytesRead;*/
-	ssize_t totalBytesRead;
-	char c;
+	int exitCode;
+	int m = 0;
 
-	if (*lineptr == NULL || *n == 0)
+	switch (info->argv[1] != NULL)
 	{
-		*n = BUFFER_SIZE;
-		*lineptr = malloc(*n);
-
-		if (*lineptr == NULL)
-		{
-			return (-1); /*Error: memory allocation failed*/
-		}
-	}
-
-	/*bytesRead = 0;*/
-	totalBytesRead = 0;
-
-	while (1)
+	case 1:
+	exitCode = _erratoi(info->argv[1]);
+	switch (exitCode)
 	{
-		/* Check if more data needs to be read into the buffer*/
-		if (buffer_pos >= buffer_size)
-		{
-			buffer_size = read(STDIN_FILENO, buffer, BUFFER_SIZE);
-			buffer_pos = 0;
-
-
-			if (buffer_size <= 0)
-			{
-				if (totalBytesRead == 0)
-				{
-					return (-1); /* Error: no input read */
-				}
-				else
-				{
-					break; /* Return the current line */
-				}
-			}
-		}
-
-		c = buffer[buffer_pos++];
-
-		(*lineptr)[totalBytesRead++] = c;
-
-		/*Check if more space is needed in lineptr*/
-		if ((size_t)totalBytesRead >= *n - 1)
-		{
-			if (!resize_buffer(lineptr, n))
-			{
-				return (-1); /* Error: memory allocation failed*/
-			}
-		}
-
-		if (c == '\n')
-		{
-			break;
-		}
+	case -1:
+	info->status = 2;
+	display_error(info, "Illicit number: ");
+	_eputs(info->argv[1]);
+	_eputchar('\n');
+	return (1);
+	default:
+	info->error_num = exitCode;
+	return (-2);
 	}
-
-	/* Add null terminator*/
-	(*lineptr)[totalBytesRead] = '\0';
-
-	return (totalBytesRead);
+	default:
+	info->error_num = -1;
+	return (-2);
+	}
 }
 
-
 /**
- * resize_buffer - a function that resize a buffer
- * @buffer: a double pointer
- * @size: the size of the buffer
- * Return: it reurns the resize form
+ * _cd - a function that changes the current directory
+ * @info: a string containing arguments
+ * Return: Always 0
  */
-
-int resize_buffer(char **buffer, size_t *size)
+int _cd(info_t *info)
 {
-	size_t newSize = *size + BUFFER_SIZE;
-	char *newBuffer = malloc(newSize);
+	char *currentDir, *newDir, buffer[1024];
+	int chdirResult;
 
-	if (newBuffer == NULL)
+	currentDir = getcwd(buffer, 1024);
+	if (!currentDir)
+	_puts("TODO: >>getcwd failure emsg here<<\n");
+
+	switch (info->argv[1] != NULL)
 	{
-		return (0); /* Error: memory allocation failed*/
+	case 0:
+	newDir = _getenv(info, "HOME=");
+	chdirResult = chdir((newDir != NULL) ? newDir :
+			(_getenv(info, "PWD=") ? _getenv(info, "PWD=") : "/"));
+	break;
+
+	default:
+	if (_strcmp(info->argv[1], "-") == 0)
+	{
+	if (_getenv(info, "OLDPWD=") == NULL)
+	{
+	_puts(currentDir);
+	_putchar('\n');
+	return (1);
+	}
+	else
+	{
+	_puts(_getenv(info, "OLDPWD="));
+	_putchar('\n');
+	chdirResult = chdir((_getenv(info, "OLDPWD=")) ? _getenv(info, "OLDPWD=")
+			: "/");
+	}
+	}
+	else
+	{
+	chdirResult = chdir(info->argv[1]);
+	}
+	break;
 	}
 
-	my_memcpy(newBuffer, *buffer, *size);
-	free(*buffer);
-	*buffer = newBuffer;
-	*size = newSize;
-	return (1); /* Success*/
+	if (chdirResult == -1)
+	{
+	display_error(info, "can't cd to ");
+	_eputs(info->argv[1]);
+	_eputchar('\n');
+	}
+	else
+	{
+	_setenv1(info, "OLDPWD", _getenv(info, "PWD="));
+	_setenv1(info, "PWD", getcwd(buffer, 1024));
+	}
+
+	return (0);
 }
 
-
 /**
- * my_getenv - a function that gets inputs in the environment
- * @name: a pointer that represents the name of the environment
- * @envp: a pointer that represent the environment variables
- * Return: it returns NULL
+ * _help - a function that Prints out help details
+ * @info: a string containing arguments
+ * Return: Always 0
  */
-
-char *my_getenv(const char *name, char **envp)
+int _help(info_t *info)
 {
-	int i;
-	size_t name_len;
+	char **argArray;
 
-	if (name == NULL || envp == NULL)
+	argArray = info->argv;
+	_puts("help calls works. Function not yet implemented \n");
+
+	switch (0)
 	{
-		return (NULL);
+	case 0:
+	_puts(*argArray);
+	break;
 	}
 
-	name_len = my_strlen(name);
-
-	for (i = 0; envp[i] != NULL; i++)
-	{
-		if (my_strncmp(envp[i], name, name_len) == 0 && envp[i][name_len] == '=')
-		{
-			return (envp[i] + name_len + 1);
-		}
-	}
-	return (NULL);
+	return (0);
 }
