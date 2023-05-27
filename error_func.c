@@ -9,7 +9,7 @@ void errors(int error)
 {
 	switch (error)
 	{
-	case 1: 
+	case 1:
 		write(STDERR_FILENO, ERR_FORK, _strlen(ERR_FORK));
 		perror("Error");
 		break;

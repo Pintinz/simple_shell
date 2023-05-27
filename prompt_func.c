@@ -15,7 +15,7 @@ void prompt(int fd, struct stat buf)
 
 /**
  * _puts - a function that prints a string
- * @str: string 
+ * @str: string
  * Return: it returns void
  */
 void _puts(char *str)
