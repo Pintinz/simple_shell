@@ -27,7 +27,7 @@ char *_getenv(const char *name)
 		{
 			value = strtok(variable, "=");
 			value = strtok(NULL, "\n ");
-			if (value == '\0')
+			if (value == NULL)
 			{
 				errors(4);
 				exit(EXIT_FAILURE);
