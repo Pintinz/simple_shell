@@ -1,4 +1,4 @@
-#include "holberton.h"
+#include "shell.h"
 /**
  * _getenv- a function that gets variables from the environment variable
  * @name:the name of the environment variable to ger
