@@ -2,8 +2,9 @@
 
 /**
  * struct alias_s - Prints all aliases in the form name='value'
- *@ *name- variable namr
- *@ *value-value var
+ *@name: variable namr
+ *@value:value var
+ *@next: varr
  *return -
  */
 
@@ -13,6 +14,7 @@ typedef struct alias_s
 	char *value;
 	struct alias_s *next;
 } alias_s;
+
 
 alias_s *alias_list = NULL;
 
@@ -104,13 +106,18 @@ void alias_builtin(char **tokens)
 	}
 }
 
+/**
+ * main -main entranceof code
+ *
+ * Return: always(0)
+ */
+
 int main(void)
 {
-	/* Rest of the code */
 
 	while (TRUE)
 	{
-		/* Rest of the main function */
+
 
 		if (_strcmp(tokens[0], "alias", 5) == 0)
 		{
@@ -119,7 +126,6 @@ int main(void)
 			continue;
 		}
 
-		/* Rest of the main function */
 	}
 
 	return (0);
