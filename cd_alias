@@ -1,5 +1,12 @@
 #include "shell.h"
 
+/**
+ * struct alias_s - Prints all aliases in the form name='value'
+ *@ *name- variable namr
+ *@ *value-value var
+ *return -
+ */
+
 typedef struct alias_s
 {
 	char *name;
